@@ -1,4 +1,4 @@
-## Steps To Run Proect
+## Steps To Run Project
 
 - composer install
 - php artisan migrate
