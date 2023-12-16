@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route to show all queued notifications
 Route::get('/', [WebsiteController::class, 'showNotifications']);

@@ -17,10 +17,13 @@ class ProcessNotifications extends Command
 
     public function handle()
     {
+
+        // Fetch notifications that are scheduled to be processed now or before now
         $notifications = UserNotifications::where('scheduled_at', '<=', now())
-            ->get();
+                  ->get();
 
         foreach ($notifications as $notification) {
+            // Check if it's time to process the notification based on the frequency
             if ($this->shouldProcessNotification($notification)) {
                 $this->processNotification($notification);
             }
@@ -45,8 +48,10 @@ class ProcessNotifications extends Command
 
     private function processNotification($notification): void
     {
+        // Notify the user with email
         $notification->user->notify(new CustomNotification($notification->notification_message));
 
+        // Log the notification
         Log::info('Notification processed', [
             'user_id' => $notification->user_id,
             'scheduled_at' => $notification->scheduled_at,
